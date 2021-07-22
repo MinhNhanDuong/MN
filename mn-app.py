@@ -5,9 +5,7 @@ from spacy.lang.el.stop_words import STOP_WORDS
 from wordcloud import WordCloud
 from utils import get_page_text
 
-st.set_page_config(page_title = "Covid Fake News Detection")
 
-@st.cache(allow_output_mutation=True)
 def get_nlp_model(path):   
     return spacy.load(path)
 
@@ -39,23 +37,33 @@ def generate_output(text):
 	st.pyplot(fig)
 	print(cats)
 
-nlp = get_nlp_model('model')
 
-desc = "Bạn có thể nhập URL của một bài báo hoặc dán trực tiếp đoạn text."
+	
+def main():
+	st.set_page_config(page_title = "Covid Fake News Detection")
+	@st.cache(allow_output_mutation=True)
+	
+	nlp = get_nlp_model('model')
 
-st.title("Covid Fake News Detection")
-st.markdown(desc)
-#st.subheader("Enter the URL address/text of a news article")
-select_input = st.radio("Select Input:", ["URL", "Text"])
+	desc = "Bạn có thể nhập URL của một bài báo hoặc dán trực tiếp đoạn text."
 
-if select_input == "URL":
-    url = st.text_input("URL")   
-    if st.button("Run"):
-        text = get_page_text(url)
-        generate_output(text)  
+	st.title("Covid Fake News Detection")
+	st.markdown(desc)
+	#st.subheader("Enter the URL address/text of a news article")
+	select_input = st.radio("Select Input:", ["URL", "Text"])
 
-else:
-    text = st.text_area("Text", height=300)
-    if st.button("Run"):
-        generate_output(text) 
+	if select_input == "URL":
+	    url = st.text_input("URL")   
+	    if st.button("Run"):
+		text = get_page_text(url)
+		generate_output(text)  
+
+	else:
+	    text = st.text_area("Text", height=300)
+	    if st.button("Run"):
+		generate_output(text) 
+	return
+
+if __name__=='__main__':
+        main()
 
