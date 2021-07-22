@@ -1,9 +1,0 @@
-{
-  "labels":[
-    "REAL",
-    "FAKE",
-    "OTHER"
-  ],
-  "pretrained_vectors":null,
-  "pretrained_dims":null
-}
